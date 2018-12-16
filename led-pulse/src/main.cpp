@@ -9,7 +9,7 @@
 #include <ctime>
 #include <iostream>
 
-const int R = 0, G = 1, B = 2;
+constexpr int R = 0, G = 1, B = 2;
 
 void setup() {
     // The LED
@@ -30,7 +30,7 @@ void loop(std::int64_t delta) {
     if (cycleTimer >= 10000) {
         auto seconds = timer / 1000000.0f;
         auto value = std::sin(PI<float> * seconds);
-        auto scaled = (value + 1) * 20;
+        auto scaled = (value + 1) * 50;
         
         ledStrength = static_cast<int>(scaled);
     

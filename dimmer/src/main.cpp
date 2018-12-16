@@ -11,11 +11,11 @@
 #include <ctime>
 #include <iostream>
 
-const int R = 0, G = 1, B = 2;
-const int P = 0;
+constexpr int R = 0, G = 1, B = 2;
+constexpr int P = 0;
 
-const int ADS1115_OFFSET = 128;
-const int ADS1115_ADDRESS = 0x48;
+constexpr int ADS1115_OFFSET = 128;
+constexpr int ADS1115_ADDRESS = 0x48;
 
 void setup() {
     ads1115Setup(ADS1115_OFFSET, ADS1115_ADDRESS);
@@ -34,8 +34,8 @@ std::int64_t cycleTimer;
 
 int ledStrength;
 
-const float CLAMP_MIN = 6000;
-const float CLAMP_MAX = 26000;
+constexpr float CLAMP_MIN = 6000.0f;
+constexpr float CLAMP_MAX = 26000.0f;
 
 void loop(std::int64_t delta) {
     timer += delta;
