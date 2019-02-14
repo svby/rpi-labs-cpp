@@ -20,3 +20,5 @@ This repository contains some Raspberry Pi labs.
  - distance-buzzer
    - Pulsing a passive buzzer based on ultrasound distance sensor information
    - Requires a level shifter!
+ - humidity
+   - Querying a DHT11 temperature/humidity sensor
