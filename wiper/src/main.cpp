@@ -16,11 +16,29 @@
 #include <thread>
 
 constexpr int SENSOR = 0;
+constexpr int IN1 = 1, IN2 = 2, IN3 = 3, IN4 = 4;
+
+constexpr std::int64_t MOTOR_INTERVAL = 50000;
+constexpr float HUMIDITY_THRESHOLD = 40;
+
+constexpr int steps[6][4] = {
+    {1, 0, 1, 0},
+    {0, 1, 1, 0},
+    {0, 1, 0, 1},
+    {1, 0, 0, 1},
+    {0, 1, 0, 1},
+    {0, 1, 1, 0}
+};
 
 void startSensorThread();
 
 void setup() {
     startSensorThread();
+
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(IN3, OUTPUT);
+    pinMode(IN4, OUTPUT);
 }
 
 std::int64_t timer;
@@ -107,12 +125,28 @@ void startSensorThread() {
     });
 }
 
+float lastHumidity{0};
+int currentStep{0};
+
 void loop(std::int64_t delta) {
     timer += delta;
     cycleTimer += delta;
 
+    if (lastHumidity >= HUMIDITY_THRESHOLD && cycleTimer >= MOTOR_INTERVAL) {
+        currentStep = (currentStep + 1) % 6;
+        int const *stepData = steps[currentStep];
+
+        digitalWrite(IN1, stepData[0]);
+        digitalWrite(IN2, stepData[1]);
+        digitalWrite(IN3, stepData[2]);
+        digitalWrite(IN4, stepData[3]);
+
+        cycleTimer = 0;
+    }
+
     if (result) {
-        std::cout << "Result: " << temperature << " C, " << humidity << "% relative humidity\n";
+        lastHumidity = humidity;
+        std::cout << "New humidity value: " << humidity << '\n';
         result = false;
     }
 }
