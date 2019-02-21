@@ -22,3 +22,7 @@ This repository contains some Raspberry Pi labs.
    - Requires a level shifter!
  - humidity
    - Querying a DHT11 temperature/humidity sensor
+ - stepper
+   - "Oscillating" a 4-step motor
+ - wiper
+   - Same as `stepper`, but the motor starts according to the input from `humidity`.
